@@ -1,0 +1,519 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/9/2022 2:26:27 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="UA-LPT-ANDA"
+  DTS:CreatorName="3SHAPE\Andrii Dakov"
+  DTS:DTSID="{6D4E58F2-CF6A-4D8B-8D2C-301641356591}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="8192"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{FB33F6D7-866A-4B86-8E40-EF1F9FE4CD5C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[dk-srv-dwh-prod.LAB_DWH]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{562012C6-30C7-471A-8467-D212D60F4F4D}"
+      DTS:ObjectName="dk-srv-dwh-prod.LAB_DWH">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=dk-srv-dwh-prod;Initial Catalog=LAB_DWH;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[mssql01.prod.us.bi.3shape.local.UsageStatistics]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D9046C7D-9F1B-4133-886C-E899537290FE}"
+      DTS:ObjectName="mssql01.prod.us.bi.3shape.local.UsageStatistics">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=mssql01.prod.us.bi.3shape.local;Initial Catalog=UsageStatisticsDataWarehouse;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\UploadData"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Задача потока данных"
+      DTS:DTSID="{B8FD7794-F230-4AE9-8D2D-463B6332EF89}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="UploadData"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\UploadData\Источник &quot;OLE DB&quot;"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Источник &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;7"
+              description="Источник &quot;OLE DB&quot;"
+              name="Источник &quot;OLE DB&quot;"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">[State].[Subscription]</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Переменная, содержащая команду SQL для выполнения."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="Сопоставления между параметрами в команде SQL и переменными."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\UploadData\Источник &quot;OLE DB&quot;.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[mssql01.prod.us.bi.3shape.local.UsageStatistics]"
+                  connectionManagerRefId="Package.ConnectionManagers[mssql01.prod.us.bi.3shape.local.UsageStatistics]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;]"
+                  name="Выход источника &quot;OLE DB&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SubscriptionID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SubscriptionID]"
+                      length="20"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SubscriptionID]"
+                      name="SubscriptionID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[CustomerNo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[CustomerNo]"
+                      length="20"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[CustomerNo]"
+                      name="CustomerNo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Customer]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Customer]"
+                      length="100"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Customer]"
+                      name="Customer"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[CustomerGroup]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[CustomerGroup]"
+                      length="50"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[CustomerGroup]"
+                      name="CustomerGroup"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[IsActive]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Преобразование"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[IsActive]"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[IsActive]"
+                      name="IsActive"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[SubscriptionID]"
+                      dataType="wstr"
+                      length="20"
+                      name="SubscriptionID" />
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[CustomerNo]"
+                      dataType="wstr"
+                      length="20"
+                      name="CustomerNo" />
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[Customer]"
+                      dataType="wstr"
+                      length="100"
+                      name="Customer" />
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[CustomerGroup]"
+                      dataType="wstr"
+                      length="50"
+                      name="CustomerGroup" />
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;]"
+                  isErrorOut="true"
+                  name="Вывод ошибок источника &quot;OLE DB&quot;">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SubscriptionID]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[SubscriptionID]"
+                      name="SubscriptionID" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[CustomerNo]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[CustomerNo]"
+                      name="CustomerNo" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Customer]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[Customer]"
+                      name="Customer" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[CustomerGroup]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[CustomerGroup]"
+                      name="CustomerGroup" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[IsActive]"
+                      dataType="bool"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[IsActive]"
+                      name="IsActive" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Вывод ошибок источника &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\UploadData\Назначение &quot;OLE DB&quot;"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Назначение &quot;OLE DB&quot;;Корпорация Майкрософт. Microsoft SQL Server. (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены. http://www.microsoft.com/sql/support;4"
+              description="Назначение &quot;OLE DB&quot;"
+              name="Назначение &quot;OLE DB&quot;"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Время ожидания команды, в секундах. Величина 0 означает неограниченное время ожидания."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowset">[DWH].[Test]</property>
+                <property
+                  dataType="System.String"
+                  description="Указывает переменную, содержащую имя объекта базы данных, используемого для открытия набора строк."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Команда SQL для выполнения."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает кодовую страницу столбца, используемую, когда недоступны сведения о кодовой странице из источника данных."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Вызывает безусловное использование значение свойства DefaultCodePage при описании символьных данных."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Указывает используемый режим доступа к базе данных."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, должны ли значения в столбцах идентификаторов копироваться в назначение. Если свойство имеет значение false, значения в столбцах идентификаторов будут созданы автоматически в месте назначения. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Указывает, будут ли в назначение вставляться значения NULL для столбцов, содержащих их. Значение false показывает, что если столбец имеет значение NULL, то в назначение будет вставлено его значение по умолчанию. Применяется только в случае, если включена быстрая загрузка."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Задает параметры быстрой загрузки. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Задает, когда выдаются сообщения о фиксации транзакции в ходе вставки данных. Значение 0 задает, что по окончании вставки данных будет выдано одно сообщение о фиксации транзакции. Применяется только в том случае, если включена быстрая загрузка."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[dk-srv-dwh-prod.LAB_DWH]"
+                  connectionManagerRefId="Package.ConnectionManagers[dk-srv-dwh-prod.LAB_DWH]"
+                  description="Соединение OLE DB среды выполнения, используемое для доступа к базе данных."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]"
+                  errorOrTruncationOperation="Вставить"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Вход назначения &quot;OLE DB&quot;">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[SubscriptionID]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="SubscriptionID"
+                      externalMetadataColumnId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SubscriptionID]"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[SubscriptionID]" />
+                    <inputColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[CustomerNo]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="CustomerNo"
+                      externalMetadataColumnId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[CustomerNo]"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[CustomerNo]" />
+                    <inputColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[Customer]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Customer"
+                      externalMetadataColumnId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Customer]"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[Customer]" />
+                    <inputColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[CustomerGroup]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CustomerGroup"
+                      externalMetadataColumnId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[CustomerGroup]"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[CustomerGroup]" />
+                    <inputColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].Columns[IsActive]"
+                      cachedDataType="bool"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IsActive]"
+                      lineageId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;].Columns[IsActive]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[SubscriptionID]"
+                      dataType="wstr"
+                      length="20"
+                      name="SubscriptionID" />
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[CustomerNo]"
+                      dataType="wstr"
+                      length="20"
+                      name="CustomerNo" />
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[Customer]"
+                      dataType="wstr"
+                      length="100"
+                      name="Customer" />
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[CustomerGroup]"
+                      dataType="wstr"
+                      length="50"
+                      name="CustomerGroup" />
+                    <externalMetadataColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Вывод ошибок назначения &quot;OLE DB&quot;"
+                  synchronousInputId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\UploadData\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\UploadData\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\UploadData\Назначение &quot;OLE DB&quot;.Outputs[Вывод ошибок назначения &quot;OLE DB&quot;].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\UploadData.Paths[Выход источника &quot;OLE DB&quot;]"
+              endId="Package\UploadData\Назначение &quot;OLE DB&quot;.Inputs[Вход назначения &quot;OLE DB&quot;]"
+              name="Выход источника &quot;OLE DB&quot;"
+              startId="Package\UploadData\Источник &quot;OLE DB&quot;.Outputs[Выход источника &quot;OLE DB&quot;]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="132.8,41.6"
+          Id="Package\UploadData"
+          TopLeft="61.9285718786473,66.0882357231061" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\UploadData">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172,41.6"
+          Id="Package\UploadData\Источник &quot;OLE DB&quot;"
+          TopLeft="97.5,24.5" />
+        <NodeLayout
+          Size="184,41.6"
+          Id="Package\UploadData\Назначение &quot;OLE DB&quot;"
+          TopLeft="103,145" />
+        <EdgeLayout
+          Id="Package\UploadData.Paths[Выход источника &quot;OLE DB&quot;]"
+          TopLeft="183.5,66.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11.5,78.9"
+              Start="0,0"
+              End="11.5,71.4">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.45" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.45"
+                    Point2="0,39.45"
+                    Point3="4,39.45" />
+                  <mssgle:LineSegment
+                    End="7.49999999999997,39.45" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7.49999999999997,39.45"
+                    Point2="11.5,39.45"
+                    Point3="11.5,43.45" />
+                  <mssgle:LineSegment
+                    End="11.5,71.4" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\UploadData\Источник &quot;OLE DB&quot;">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\UploadData\Назначение &quot;OLE DB&quot;">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
